@@ -1,9 +1,9 @@
 import React,  { useState } from "react"
 
-const Converter = ({value, onChange}) => {
+const Converter = ({converterValue, onChangeConverter}) => {
   return (
     <div>
-        1 EUR = <input type="text" name="converter" value={value} onChange={onChange} />
+        1 EUR = <input type="text" name="converter" value={converterValue} onChange={onChangeConverter} />
     </div>
   );
 }
