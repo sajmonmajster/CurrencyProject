@@ -1,0 +1,17 @@
+.container {
+    width: 420px;
+    border: 2px solid black;
+    padding: 10px;
+    margin-top: 3px;
+    border-radius: 3px;
+}
+
+.input {
+    margin-left:50px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3px;
+}

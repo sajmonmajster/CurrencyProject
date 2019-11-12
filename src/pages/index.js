@@ -5,6 +5,9 @@ import Image from "../components/image"
 import SEO from "../components/seo"
 import Converter from '../components/converter'
 import Transaction from "../components/transaction";
+import "./styles.css"
+
+var amount = 0;
 
 const IndexPage = () => {
   const [currency, setCurrency] = useState(4.5);
@@ -26,7 +29,9 @@ const IndexPage = () => {
   }
 
   const addToList = () => {
-    const convertedValue = (currency * transactionValue).toFixed(2)
+    const convertedValue = parseFloat((currency * transactionValue).toFixed(2));
+    console.log("converted ", convertedValue);
+    amount =+ convertedValue;
     const item = {
       name: transactionName,
       value: transactionValue,
@@ -34,8 +39,8 @@ const IndexPage = () => {
       currency: currency
     };
     const newList = list.concat([item]);
-
     setList(newList);
+    console.log(amount);
   }
 
   const removeFromList = (index) => {
@@ -44,18 +49,21 @@ const IndexPage = () => {
     setList(newList);
   }
 
+  //const calculateAmount
+
   return (
     <Layout>
       <Converter converterValue={currency} onChangeConverter={onChangeConverter}></Converter>
       <Transaction name={transactionName} value={transactionValue} onChangeName={onChangeName} onChangeValue={onChangeValue}></Transaction>
-      <button onClick={addToList}>Add to list</button>
+      <div className="container"><button onClick={addToList}>Dodaj do listy</button></div>
         {
           list.map((item, index) => 
-          <div key={index}>
-           {index+1}. {item.name} kupiony(a) po kursie {item.currency} kosztował {item.convertedValue} złotych. Przy obecnym kursie kosztował(a) by {(currency * item.value).toFixed(2)}
-           <button onClick={() => removeFromList(index)}>Remove from list</button>
+          <div key={index} className="list">
+           <div className="item"><div>{index+1}.</div> <div className="text">{item.name} kupiony(a) po kursie {item.currency} kosztował {item.convertedValue} złotych. Przy obecnym kursie kosztował(a)by {(currency * item.value).toFixed(2)}</div></div>
+           <button onClick={() => removeFromList(index)}>Usuń</button>
           </div>)
         }
+        <h1>Suma wszytskich to: {amount}</h1>
     </Layout>
   );
 }

@@ -1,0 +1,22 @@
+.list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: lightgray;
+    border: 1px solid green;
+    border-radius: 2px;
+    margin-top: 5px;
+}
+
+.text {
+    font-size: small;
+    margin-left: 20px;
+}
+
+.item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 5px;
+}
