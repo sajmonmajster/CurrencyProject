@@ -59,7 +59,7 @@ const IndexPage = () => {
         {
           list.map((item, index) => 
           <div key={index} className="list">
-           <div className="item"><div>{index+1}.</div> <div className="text">{item.name} kupiony(a) po kursie {item.currency} kosztował {item.convertedValue} złotych. Przy obecnym kursie kosztował(a)by {(currency * item.value).toFixed(2)}</div></div>
+           <div className="item"><div>{index+1}.</div> <div className="text">{item.name} kupiony(a) po kursie {item.currency} kosztował {item.convertedValue} zł. Przy obecnym kursie kosztował(a)by {(currency * item.value).toFixed(2)}</div></div>
            <button onClick={() => removeFromList(index)}>Usuń</button>
           </div>)
         }
