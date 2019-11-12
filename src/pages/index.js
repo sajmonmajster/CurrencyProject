@@ -1,19 +1,17 @@
 import React,  { useState } from "react"
-import { Link } from "gatsby"
 import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
 import Converter from '../components/converter'
 import Transaction from "../components/transaction";
 import "./styles.css"
 
-var amount = 0;
 
 const IndexPage = () => {
   const [currency, setCurrency] = useState(4.5);
   const [transactionName, setTransactionName] = useState("default");
   const [transactionValue, setTransactionValue] = useState(100);
   const [list, setList] = useState([]);
+  const [amount, setAmount] = useState(0);
+  const [max, setMax] = useState(0);
   
 
   const onChangeConverter = (event) => {
@@ -28,10 +26,21 @@ const IndexPage = () => {
     setTransactionValue(event.target.value);
   }
 
+  const maxValue = (newList) => {
+    let max = 0;
+    for(let i=0; i<newList.length; i++) {
+      if(newList[i].convertedValue > max ) {
+        max = newList[i].convertedValue;
+      }
+    }
+    setMax(max);
+  }
+
   const addToList = () => {
     const convertedValue = parseFloat((currency * transactionValue).toFixed(2));
     console.log("converted ", convertedValue);
-    amount =+ convertedValue;
+    const newAmount = amount + convertedValue;
+    setAmount(newAmount) ;
     const item = {
       name: transactionName,
       value: transactionValue,
@@ -40,13 +49,16 @@ const IndexPage = () => {
     };
     const newList = list.concat([item]);
     setList(newList);
-    console.log(amount);
+    maxValue(newList);
   }
 
   const removeFromList = (index) => {
     const newList = [...list];
+    const newAmount = amount - newList[index].convertedValue;
+    setAmount(newAmount);
     newList.splice(index, 1);
     setList(newList);
+    maxValue(newList);
   }
 
   //const calculateAmount
@@ -55,7 +67,9 @@ const IndexPage = () => {
     <Layout>
       <Converter converterValue={currency} onChangeConverter={onChangeConverter}></Converter>
       <Transaction name={transactionName} value={transactionValue} onChangeName={onChangeName} onChangeValue={onChangeValue}></Transaction>
-      <div className="container"><button onClick={addToList}>Dodaj do listy</button></div>
+      <div className="container">
+        <div className="addMenu"><button onClick={addToList}>Dodaj do listy</button><div>Max wartość: {max}zł</div></div>        
+      </div>
         {
           list.map((item, index) => 
           <div key={index} className="list">
@@ -63,7 +77,7 @@ const IndexPage = () => {
            <button onClick={() => removeFromList(index)}>Usuń</button>
           </div>)
         }
-        <h1>Suma wszytskich to: {amount}</h1>
+        <h2>Suma wszytskich to: {amount}</h2>
     </Layout>
   );
 }

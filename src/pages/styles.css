@@ -22,3 +22,8 @@
     align-items: center;
     margin: 5px;
 }
+
+.addMenu {
+    display: flex;
+    justify-content: space-between;    
+}
